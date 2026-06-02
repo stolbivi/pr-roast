@@ -1,5 +1,6 @@
 import { Probot } from "probot";
 import Anthropic from "@anthropic-ai/sdk";
+import { buildRoastPrompt } from "./prompt.js";
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
@@ -34,19 +35,13 @@ async function getRoast(
     )
     .join("\n\n");
 
-  const prompt = `You are a brutally honest but funny senior engineer doing a PR roast.
-PR title: "${pr.title}"
-PR description: "${pr.body ?? "none — classic"}"
-Files changed: ${files.length}, Commits: ${pr.commits ?? 0}
-
-Diff:
-${diffSummary}
-
-Roast this PR. Format:
-**The Verdict** — one savage opening line
-**Offenses** — 3-5 specific jokes tied to actual code issues, each ending with the real fix in italics
-**The Real Talk** — 3 deadpan bullet points of genuine improvements
-**Merge-ability Score** — X/10 with a one-line justification`;
+  const prompt = buildRoastPrompt({
+    title: pr.title,
+    description: pr.body ?? "none — classic",
+    filesChanged: files.length,
+    commits: pr.commits ?? 0,
+    diffSummary,
+  });
 
   const msg = await client.messages.create({
     model: "claude-opus-4-8",
