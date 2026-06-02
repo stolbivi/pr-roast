@@ -13,7 +13,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "start": "tsc && probot run ./lib/index.js",
+    "start": "probot run ./lib/index.js",
     "dev": "tsc && probot run ./lib/index.js",
     "test": "vitest"
   },
