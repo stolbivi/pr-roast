@@ -19,14 +19,14 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.100.1",
-    "probot": "^14.3.2"
+    "probot": "^14.3.2",
+    "typescript": "^6.0.3"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
     "ioredis": "^5.10.1",
     "nock": "^14.0.5",
     "smee-client": "^5.0.0",
-    "typescript": "^6.0.3",
     "vitest": "^3.2.4"
   },
   "overrides": {
